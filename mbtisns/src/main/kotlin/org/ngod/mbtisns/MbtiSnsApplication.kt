@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class MbtisnsApplication
+class MbtiSnsApplication
 
 fun main(args: Array<String>) {
-	runApplication<MbtisnsApplication>(*args)
+	runApplication<MbtiSnsApplication>(*args)
 }
