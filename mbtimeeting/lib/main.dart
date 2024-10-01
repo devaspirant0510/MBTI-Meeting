@@ -13,13 +13,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         title: 'Flutter Demo',
-        initialRoute: "/", // 처음 보여지는 화면 path 경로
+        initialRoute: "/call", // 처음 보여지는 화면 path 경로
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
         routes: {
-          "/": (context) => SeungPage(),
+          "/call": (context) => SeungPage(),
           /**
            * "/home" :(context) => HomePage(),
            * "/dm" :(context) => DmPage(),

@@ -5,9 +5,45 @@ class SeungPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      //여기다가 작성
-      home: Text("하하하하ㅏ하"),
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          //앱 상단
+          title: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // 좌우로 배치
+            children: [
+              //상단에 <부분 코딩
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text('<' ,
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 40.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              //상단에 …부분 코딩
+              Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 25.0),
+                  child: Text('…',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 40.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: Container(
+          color: Colors.white70,
+        ),
+      )
     );
   }
 }
