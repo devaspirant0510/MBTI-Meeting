@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-class Seung extends StatelessWidget {
-  const Seung({super.key});
+class SeungPage extends StatelessWidget {
+  const SeungPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder(
+    return const MaterialApp(
       //여기다가 작성
-      child: ,
+      home: Text("하하하하ㅏ하"),
     );
   }
 }
+
