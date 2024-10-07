@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mbtimeeting/seung.dart';
 
+import 'seung.dart';
+
 void main() {
   runApp(const MyApp());
 }
