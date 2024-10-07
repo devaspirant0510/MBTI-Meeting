@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mbtimeeting/ChatScreen.dart';
 import 'package:mbtimeeting/seung.dart';
-import 'Home.dart';
-
-// 채팅방 모델 클래스
-class ChatRoom {
-  final String name; // 사용자 이름
-  final String lastMessage; // 최근 메시지
-
-  ChatRoom({
-    required this.name,
-    required this.lastMessage,
-  });
-}
+import 'package:mbtimeeting/Home.dart';
+import 'package:mbtimeeting/chat_room.dart'; // ChatRoom 클래스 가져오기
 
 class Dm extends StatefulWidget {
   const Dm({super.key});
@@ -21,17 +12,16 @@ class Dm extends StatefulWidget {
 }
 
 class _DmState extends State<Dm> {
-  int _selectedIndex = 0; // 선택된 탭의 인덱스
-  bool isHovered = false; // 마우스 오버 상태를 나타내는 변수
-  List<ChatRoom> _chatRooms = []; // 채팅방 목록
+  int _selectedIndex = 0;
+  bool isHovered = false;
+  List<ChatRoom> _chatRooms = []; // chat_room.dart에서 가져온 ChatRoom 클래스 사용
 
-  // 탭 변경 시 호출되는 함수
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // 선택된 인덱스 업데이트
+      _selectedIndex = index;
     });
 
-    if (index == 2) { // 인덱스 2가 MBTI Meeting 탭
+    if (index == 2) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const SeungPage()),
@@ -39,7 +29,6 @@ class _DmState extends State<Dm> {
     }
   }
 
-  // 홈 화면으로 이동하는 함수
   void _goToHome() {
     Navigator.pushReplacement(
       context,
@@ -47,14 +36,22 @@ class _DmState extends State<Dm> {
     );
   }
 
-  // 채팅방 생성 함수
   void _createChatRoom() {
     setState(() {
       _chatRooms.add(ChatRoom(
-        name: '사용자 ${_chatRooms.length + 1}', // 사용자 이름
-        lastMessage: '최근 메시지 내용입니다.', // 최근 메시지
+        name: '사용자 ${_chatRooms.length + 1}',
+        lastMessage: '최근 메시지 내용입니다.',
       ));
     });
+  }
+
+  void _enterChatRoom(ChatRoom chatRoom) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChatScreen(chatRoom: chatRoom), // chat_screen.dart에서 불러옴
+      ),
+    );
   }
 
   @override
@@ -67,12 +64,12 @@ class _DmState extends State<Dm> {
               MouseRegion(
                 onEnter: (_) {
                   setState(() {
-                    isHovered = true; // 마우스가 올려졌을 때 상태 변경
+                    isHovered = true;
                   });
                 },
                 onExit: (_) {
                   setState(() {
-                    isHovered = false; // 마우스가 나갔을 때 상태 변경
+                    isHovered = false;
                   });
                 },
                 child: GestureDetector(
@@ -109,35 +106,33 @@ class _DmState extends State<Dm> {
                   ),
                 ),
               ),
-              const Spacer(), // 남은 공간을 차지하여 아이콘을 오른쪽으로 이동
+              const Spacer(),
               IconButton(
-                icon: const Icon(Icons.add), // 채팅방 생성 아이콘
-                onPressed: _createChatRoom, // 아이콘 클릭 시 채팅방 생성
+                icon: const Icon(Icons.add),
+                onPressed: _createChatRoom,
               ),
             ],
           ),
         ),
-        body: _chatRooms.isEmpty // 채팅방이 비어 있을 경우
-            ? Center(child: Text('채팅방이 없습니다. 채팅방을 생성하세요.'))
+        body: _chatRooms.isEmpty
+            ? const Center(child: Text('채팅방이 없습니다. 채팅방을 생성하세요.'))
             : ListView.builder(
           itemCount: _chatRooms.length,
           itemBuilder: (context, index) {
             final chatRoom = _chatRooms[index];
             return ListTile(
               leading: CircleAvatar(
-                backgroundColor: Colors.grey[300], // 아이콘 배경 색상
-                child: Icon(Icons.person, color: Colors.black), // 사람 아이콘
+                backgroundColor: Colors.grey[300],
+                child: const Icon(Icons.person, color: Colors.black),
               ),
-              title: Text(chatRoom.name), // 사용자 이름
-              subtitle: Text(chatRoom.lastMessage), // 최근 메시지
-              onTap: () {
-                // 채팅방 클릭 시 동작
-              },
+              title: Text(chatRoom.name),
+              subtitle: Text(chatRoom.lastMessage),
+              onTap: () => _enterChatRoom(chatRoom),
             );
           },
         ),
         bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, // 고정된 바
+          type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -160,10 +155,10 @@ class _DmState extends State<Dm> {
               label: '프로필',
             ),
           ],
-          currentIndex: _selectedIndex, // 현재 선택된 탭 인덱스
-          selectedItemColor: Colors.amber[800], // 선택된 아이템 색상
-          unselectedItemColor: Colors.black, // 선택되지 않은 아이템 색상
-          onTap: _onItemTapped, // 탭 클릭 시 호출
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.amber[800],
+          unselectedItemColor: Colors.black,
+          onTap: _onItemTapped,
         ),
       ),
     );
