@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mbtimeeting/DM.dart';
 import 'package:mbtimeeting/seung.dart';
 
 class Home extends StatefulWidget {
@@ -21,6 +22,12 @@ class _HomeState extends State<Home> {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const SeungPage()),
+      );
+    }
+    else if (index == 3) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Dm()),
       );
     }
   }

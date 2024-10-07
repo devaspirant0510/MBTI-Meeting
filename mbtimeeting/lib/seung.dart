@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:mbtimeeting/Home.dart';
 
@@ -104,22 +103,22 @@ class _SeungPageState extends State<SeungPage> {
             // User1의 상태를 표시하는 Row
             Container(
               height: 150,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // User1의 아이콘 표시, 음성 상태에 따라 변함
-                    _UserIcon(isSpeaking: isSpeaking), // 음성 인식 상태에 따라 아이콘 변화
-                    const Text(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _UserIcon(isSpeaking: isSpeaking), // 음성 인식 상태에 따라 아이콘 변화
+                  Padding(
+                      padding: EdgeInsets.only(right:  150.0),
+                    child: const Text(
                       "User1",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20.0,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                  // User1의 아이콘 표시, 음성 상태에 따라 변함
+                ],
               ),
             ),
             // User2의 상태를 표시하는 Row
@@ -127,11 +126,11 @@ class _SeungPageState extends State<SeungPage> {
               height: 50,
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 25.0),
-                child: Text("...",
+                padding: EdgeInsets.only(bottom: 15.0),
+                child: Text(". . .",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 20.0,
+                    fontSize: 30.0,
                   ),
                 ),
               )
@@ -141,11 +140,11 @@ class _SeungPageState extends State<SeungPage> {
               child: Padding(
                 padding: EdgeInsets.only(top: 30.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     // User2 이름 텍스트
                     const Padding(
-                      padding: EdgeInsets.only(right: 0),
+                      padding: EdgeInsets.only(left: 150.0),
                       child: Text(
                         "User2",
                         style: TextStyle(
@@ -164,7 +163,7 @@ class _SeungPageState extends State<SeungPage> {
             Padding(
               padding: const EdgeInsets.only(top: 100.0), // 원하는 패딩 값을 설정
               child: Container(
-                height: 50.0,
+                height: 60.0,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: Colors.red,
@@ -172,6 +171,9 @@ class _SeungPageState extends State<SeungPage> {
                 ),
                 child: IconButton(
                   icon: Icon(Icons.phone_disabled, color: Colors.white),
+                  iconSize: 30.0,
+                  padding: EdgeInsets.all(8),
+                  constraints: BoxConstraints(),
                   onPressed: () {
                     setState(() {
                       isInCall = false; // 통화 중 상태를 false로 변경
