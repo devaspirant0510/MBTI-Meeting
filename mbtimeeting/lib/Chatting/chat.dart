@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mbtimeeting/Chatting/ChatScreen.dart';
 import 'package:mbtimeeting/Chatting/chat_room.dart';
-import '../MBTIMeeting/seung.dart';
 import '../StartPage/btmnavi.dart'; // ChatRoom 클래스 가져오기
 
 class Dm extends StatefulWidget {
@@ -12,22 +11,8 @@ class Dm extends StatefulWidget {
 }
 
 class _DmState extends State<Dm> {
-  int _selectedIndex = 0;
   bool isHovered = false;
   List<ChatRoom> _chatRooms = []; // chat_room.dart에서 가져온 ChatRoom 클래스 사용
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const SeungPage()),
-      );
-    }
-  }
 
   void _goToHome() {
     Navigator.pushReplacement(
@@ -130,35 +115,6 @@ class _DmState extends State<Dm> {
               onTap: () => _enterChatRoom(chatRoom),
             );
           },
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: '홈',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: '검색',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.connect_without_contact),
-              label: 'MBTI Meeting',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat),
-              label: 'DM',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: '프로필',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          unselectedItemColor: Colors.black,
-          onTap: _onItemTapped,
         ),
       ),
     );

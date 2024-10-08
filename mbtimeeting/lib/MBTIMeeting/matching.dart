@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import '../StartPage/btmnavi.dart';
 
-class SeungPage extends StatefulWidget {
-  const SeungPage({super.key});
+class matching extends StatefulWidget {
+  const matching({super.key});
 
   @override
-  _SeungPageState createState() => _SeungPageState();
+  _matchingState createState() => _matchingState();
 }
 
-class _SeungPageState extends State<SeungPage> {
+class _matchingState extends State<matching> {
   // 음성 인식 상태를 나타내는 변수
   bool isSpeaking = false; // 초기값 false로 설정
   bool isHovered = false; // 마우스 오버 상태를 나타내는 변수
@@ -161,7 +161,7 @@ class _SeungPageState extends State<SeungPage> {
             ),
             //통화 종료 버튼
             Padding(
-              padding: const EdgeInsets.only(top: 100.0), // 원하는 패딩 값을 설정
+              padding: const EdgeInsets.only(top: 60.0), // 원하는 패딩 값을 설정
               child: Container(
                 height: 60.0,
                 alignment: Alignment.center,
@@ -184,7 +184,7 @@ class _SeungPageState extends State<SeungPage> {
               ),
             ),
             //테스트용 User2 입장버튼
-            Column(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(

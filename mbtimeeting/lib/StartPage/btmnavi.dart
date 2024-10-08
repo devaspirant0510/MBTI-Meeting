@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mbtimeeting/MBTIMeeting/seung.dart';
 import '../../profile/user_profile.dart';
 import '../Chatting/chat.dart';
 import '../Home/home.dart';
+import '../MBTIMeeting/matching.dart';
 
 
 class BottomNavigationWidget extends StatefulWidget {
@@ -18,7 +18,7 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
   // 각 탭에 연결할 페이지 리스트
   final List<Widget> _pages = [
     const Home(),
-    const SeungPage(),
+    const matching(),
     const Home(),
     const Dm(),
     const UserProfile(),

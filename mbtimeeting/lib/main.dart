@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mbtimeeting/StartPage/login_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'MBTIMeeting/seung.dart';
 import 'StartPage/btmnavi.dart';
 
 void main() async{

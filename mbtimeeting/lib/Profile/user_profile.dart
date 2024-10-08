@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'edit_profile.dart';
 
 class UserProfile extends StatefulWidget {
