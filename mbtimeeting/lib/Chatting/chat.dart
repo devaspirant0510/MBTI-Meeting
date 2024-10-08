@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mbtimeeting/ChatScreen.dart';
-import 'package:mbtimeeting/seung.dart';
-import 'package:mbtimeeting/Home.dart';
-import 'package:mbtimeeting/chat_room.dart'; // ChatRoom 클래스 가져오기
+import 'package:mbtimeeting/Chatting/ChatScreen.dart';
+import 'package:mbtimeeting/Chatting/chat_room.dart';
+import '../MBTIMeeting/seung.dart';
+import '../StartPage/btmnavi.dart'; // ChatRoom 클래스 가져오기
 
 class Dm extends StatefulWidget {
   const Dm({super.key});
@@ -32,7 +32,7 @@ class _DmState extends State<Dm> {
   void _goToHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(builder: (context) => const BottomNavigationWidget()),
     );
   }
 

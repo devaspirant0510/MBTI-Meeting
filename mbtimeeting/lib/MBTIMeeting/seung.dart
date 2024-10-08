@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mbtimeeting/Home.dart';
+import '../StartPage/btmnavi.dart';
 
 class SeungPage extends StatefulWidget {
   const SeungPage({super.key});
@@ -27,7 +27,7 @@ class _SeungPageState extends State<SeungPage> {
   void _goToHome() {
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => const Home()),
+      MaterialPageRoute(builder: (context) => const BottomNavigationWidget()),
     );
   }
 
@@ -108,7 +108,7 @@ class _SeungPageState extends State<SeungPage> {
                 children: [
                   _UserIcon(isSpeaking: isSpeaking), // 음성 인식 상태에 따라 아이콘 변화
                   Padding(
-                      padding: EdgeInsets.only(right:  150.0),
+                    padding: EdgeInsets.only(right:  150.0),
                     child: const Text(
                       "User1",
                       style: TextStyle(
@@ -123,17 +123,17 @@ class _SeungPageState extends State<SeungPage> {
             ),
             // User2의 상태를 표시하는 Row
             Container(
-              height: 50,
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 15.0),
-                child: Text(". . .",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30.0,
+                height: 50,
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: 15.0),
+                  child: Text(". . .",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30.0,
+                    ),
                   ),
-                ),
-              )
+                )
             ),
             Container(
               height: 150,
@@ -210,7 +210,7 @@ class _SeungPageState extends State<SeungPage> {
                 ElevatedButton(
                   onPressed: _toggleSpeakingState, // 버튼 클릭 시 음성 상태 전환
                   child:
-                      Text(isSpeaking ? '말하기 종료' : '말하기 시작'), // 상태에 따라 텍스트 변화
+                  Text(isSpeaking ? '말하기 종료' : '말하기 시작'), // 상태에 따라 텍스트 변화
                 ),
               ],
             ),

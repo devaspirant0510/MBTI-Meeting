@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mbtimeeting/chat_room.dart'; // ChatRoom 클래스 가져오기
+import 'package:mbtimeeting/Chatting/chat_room.dart';
 
 // Message 클래스 정의
 class Message {
