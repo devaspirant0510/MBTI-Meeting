@@ -42,6 +42,10 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt:0.9.1")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("org.glassfish.jaxb:jaxb-runtime:2.3.1")
+	implementation("me.paulschwarz:spring-dotenv:2.5.4")
+	implementation("com.google.code.gson:gson:2.8.9")
+	testImplementation("com.h2database:h2")
+	implementation("org.springframework.boot:spring-boot-starter-websocket")
 }
 
 kotlin {

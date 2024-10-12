@@ -1,45 +1,67 @@
 package org.ngod.mbtisns.controller.auth
 
+import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
-import io.swagger.v3.oas.annotations.headers.Header
+import org.ngod.mbtisns.controller.auth.dto.JoinAuthDto
+import org.ngod.mbtisns.core.ApiException
+import org.ngod.mbtisns.core.ApiResponse
 import org.ngod.mbtisns.data.entity.Account
-import org.ngod.mbtisns.service.AuthService
+import org.ngod.mbtisns.domain.model.jwt.JwtBody
+import org.ngod.mbtisns.domain.service.AuthService
+import org.ngod.mbtisns.domain.service.JwtService
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+
 
 @RestController
 @RequestMapping("/api/v1/auth")
-class AuthController(val service: AuthService) : AuthSwagger {
-    override fun getArticle(): String {
-        return "a"
+class AuthController(val service: AuthService, val jwtService: JwtService) : AuthSwagger {
+    @GetMapping("/{accountId}")
+    override fun getAuthById(
+        @PathVariable(name = "accountId")
+        accountId: Long
+    ): ApiResponse<Account> {
+        return ApiResponse.success(service.findAuthById(accountId))
+    }
+
+    @GetMapping("/masterToken")
+    override fun getMasterToken(): ResponseEntity<ApiResponse<String>> {
+        return ResponseEntity.ok(ApiResponse.success(jwtService.generateMasterToken()))
     }
 
     @PostMapping()
-    override fun joinAccount(@RequestBody account: Account): Account {
+    override fun joinAccount(@RequestBody account: JoinAuthDto): Account {
         try {
-            return service.accountSave(account)
+            println(account)
+            val convertAccount = Account(uid =account.uid, email = account.email, provider = account.provider)
+            return service.accountSave(convertAccount)
         } catch (e: Exception) {
             println(e)
+            e.printStackTrace()
             throw Error(e.toString())
         }
     }
 
-    @GetMapping
-    fun testUser(@RequestHeader("Authorization") token: String): Boolean {
-        print(token)
-        return try {
-            println(token)
-            val claims = Jwts.parser().setSigningKey("9WGDse5arJHVlkO3dIyOC1fBHYoey7cFE2rz+vgSbsDtB5VkMZJTQcE5HhX43HherMq1iUkr+QujQMp82l3xdA==".toByteArray()).parseClaimsJws(token)
-            println(claims)
-            println(claims.body)
-            println(claims.header)
-            println(claims.signature)
+    @GetMapping("/getUser")
+    override fun getUser(@RequestHeader("Authorization") token: String): ApiResponse<Account> {
+        try {
+            val jwtBody = jwtService.verifyToken(token) ?: throw ApiException(HttpStatus.BAD_REQUEST.value(),"jwtToken 인증실패")
+            val userUid = jwtBody.sub
+            val user = service.readLoginUser(userUid)
+            return ApiResponse.success(user)
+        } catch (e: Error) {
+            throw ApiException(HttpStatus.BAD_REQUEST.value(),"bad request")
+        }
+    }
 
-
-
-            true
-        } catch (e: Exception) {
-            print(e)
-            false
+    @GetMapping("/getAuth")
+    override fun getAuth(@RequestHeader("Authorization") token: String): ApiResponse<JwtBody> {
+        val body = jwtService.verifyToken(token)
+        if (body != null) {
+            return ApiResponse.success(body)
+        } else {
+            throw ApiException(HttpStatus.UNAUTHORIZED.value(),"인증되지 않은 유저")
         }
     }
 

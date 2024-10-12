@@ -1,4 +1,4 @@
-package org.ngod.mbtisns.data.entity
+package org.ngod.mbtisns.data.entity.enum
 
 enum class Mbti {
     ISTJ, ISFJ, INFJ, INTJ,

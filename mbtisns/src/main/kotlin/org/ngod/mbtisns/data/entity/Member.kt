@@ -1,30 +1,43 @@
 package org.ngod.mbtisns.data.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIdentityInfo
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import io.swagger.v3.oas.annotations.media.Schema
 import jakarta.persistence.*
-import java.util.*
+import org.hibernate.annotations.CreationTimestamp
+import org.ngod.mbtisns.data.entity.enum.Mbti
+import java.time.LocalDateTime
 
 @Schema(name = "Account", description = "사용자")
 @Entity
 data class Member(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Long?,
+    @Id
+    var id: Long? = null,
 
     @Schema(name = "nickName", description = "유저 닉네임")
     @Column(name = "nick_name", nullable = true, length = 20)
-    var nickName: String?,
-
+    var nickName: String? = null,
 
     @Enumerated(EnumType.STRING)
-    var mbti: Mbti? = null,  // Enum type for MBTI
+    var mbti: Mbti? = null, // Enum type for MBTI
 
+    @CreationTimestamp
+    @Schema(name = "createdAt", description = "SNS 계정 연동일")
     @Column(name = "created_at")
-    var createdAt: Date? = null,
+    var createdAt: LocalDateTime? = null,
 
     @OneToOne
-    @JoinColumn(name = "account_id", nullable = false)  // 외래키 설정 (account의 id를 참조)
-    var account: Account? = null,
+    @JoinColumn(name = "profile_image_id", nullable = true)
+    var profileImage: ProfileImage? = null,
 
-    @OneToOne(mappedBy = "member", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var profileImage: ProfileImage? = null
+
+
+    @OneToMany(mappedBy = "follower", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var followings: MutableSet<Follow>? = HashSet(), // 팔로우한 사람들
+
+    @OneToMany(mappedBy = "following", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    var followers: MutableSet<Follow>? = HashSet() // 나를 팔로우하는 사람들
+
 )
